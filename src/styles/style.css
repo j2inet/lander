@@ -1,0 +1,11 @@
+html, body {
+    font-family: Nina, Tahoma, Arial, Helvetica, sans-serif;
+    font-size:12pt;
+    background-color: #101010;
+    color: white;
+}
+
+#landerCanvas {
+    width:95%;
+    height: 95%;
+}
