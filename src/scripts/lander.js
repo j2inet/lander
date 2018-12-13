@@ -38,7 +38,9 @@ function lander() {
         if(this.engineOn) {
 
         }
+        
         for(var i=0;i<3;++i) {
+            this.acceleration[i] = 
             this.velocity[i]+=this.acceleration[i]*time;
             this.position[i]+=this.velocity[i]*time;
         }
