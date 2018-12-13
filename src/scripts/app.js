@@ -3,6 +3,7 @@ var ctx;
 var programInfo;
 var positionBuffer;
 var squareRotation = 0;
+var shipDisplacement = [0,0,-40];
 
 
 function Promise() {
@@ -15,6 +16,7 @@ function Promise() {
         doneFunction(o);
     }
 }
+
 function getResource(url, onComplete) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -239,7 +241,7 @@ function drawScene(gl, programInfo, buffers) {
   
     mat4.translate(modelViewMatrix,     // destination matrix
                    modelViewMatrix,     // matrix to translate
-                   [-0.0, 0.0, -6.0]);  // amount to translate
+                   shipDisplacement);  // amount to translate
     mat4.rotate(modelViewMatrix,  // destination matrix
                     modelViewMatrix,  // matrix to rotate
                     squareRotation,   // amount to rotate in radians
@@ -316,11 +318,22 @@ function drawScene(gl, programInfo, buffers) {
 }
 
 var then = 0;
+
+var primeLander = new lander();
+
+
+function update(deltaTime) { 
+    primeLander.update(deltaTime);
+}
 function render(now) {
     now *= 0.0005;
     const deltaTime = now - then;
     then = now;
     squareRotation+=deltaTime;
+    shipDisplacement[1]+=0.001;
+
+    update(deltaTime);
+
     drawScene(ctx, programInfo, positionBuffer, deltaTime );
     requestAnimationFrame(render);
     console.log('.');
